@@ -1,0 +1,594 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* A more robust reset for easier layout calculations */
+}
+
+
+:root {
+    --color-white: #fff;
+  --color-info-dark: #7d8da1;
+  --color-info-light: #dce1eb;
+  --color-dark: #363949;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --color-primary-variant: #111e88;
+  --color-dark-variant: #677483;
+  --color-background: #f6f6f9;
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 1.8rem;
+  --padding-1: 1.2rem;
+
+  --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+
+body {
+  width: 100%; 
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff); 
+  user-select: none;
+  overflow-x: hidden;
+  color: var(--color-dark); /* Added a default text color for accessibility */
+}
+
+a {
+  text-decoration: none; /* Good practice to reset link underlines globally */
+  color: inherit;
+}
+
+ul {
+  list-style-type: none; /* Good practice to reset list bullets */
+}
+
+/* General Container Styles */
+.container {
+  display: grid;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  gap: 1.8rem;
+  background: var(--color-white);
+  /* grid-template-columns: 14rem auto 23rem; */ /* This was commented out, kept for reference */
+}
+
+/* ==================== HOMEPAGE ==================== */
+.homepageContainer {
+  background: url("images/LoginBackground.png") no-repeat center center/cover;
+  position: relative;
+}
+
+.navbar {
+  padding: 1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically align navbar items */
+  border-radius: var(--border-radius-1);
+}
+
+.navbar .Logo h2 {
+  font-size: 2rem;
+  color: var(--color-dark); /* FIX: Used variable for consistency */
+}
+
+/* FIX: Applied flex to the <ul> for proper alignment of list items */
+.navbar .NavLinks ul {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .NavLinks ul li a {
+  display: block; /* Makes the entire area clickable */
+  color: var(--color-white);
+  font-size: 1.6rem;
+  padding: 0.8rem;
+  margin: 0 0.5rem; /* Replaced padding on li with margin on a */
+  border-radius: 10px;
+  transition: font-size 0.3s ease;
+}
+
+.navbar .NavLinks ul li a:hover {
+  font-size: 1.8rem;
+}
+
+.Header_body {
+  width: 100%;
+  height: 60vh;
+  position: relative;
+}
+
+.body_row {
+  text-align: center;
+  color: var(--color-white); /* Set color on the parent */
+}
+
+.body_row .homepage_h1 {
+  font-size: 4rem;
+  padding-top: 2rem; /* Added padding for spacing */
+}
+
+.body_row .homepage_p {
+  font-size: 20px;
+  margin-top: 1rem;
+}
+
+/* REFACTORED: Combined .homepage_button and .ctaButton into a generic .btn class */
+
+
+.inspiration {
+  padding-block: 2rem;
+  /* FIX: Used a defined variable for background-color. Changed from --extra-light */
+  background-color: var(--color-background);
+  overflow: hidden;
+}
+
+.inspiration :is(.section__header, .section__description) {
+  padding-inline: 1rem;
+  margin-bottom: 1rem;
+}
+
+.inspiration__wrapper {
+  margin-top: 2rem;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  animation: scroll-left 45s linear infinite;
+}
+
+.inspiration__card {
+  padding-inline: 1rem;
+  text-align: center;
+}
+
+.inspiration__card img {
+  margin-bottom: 1rem;
+  width: 200px;
+  border-radius: 10%;
+  border: 0.375rem solid var(--color-white);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.inspiration__card h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-dark); /* FIX: Used defined variable --color-dark instead of --text-dark */
+}
+
+.inspiration__card p {
+  font-size: 1rem;
+  font-weight: 500;
+  /* FIX: Used defined variable --color-dark-variant instead of --text-light */
+  color: var(--color-dark-variant);
+}
+
+@keyframes scroll-left {
+  to {
+    transform: translateX(calc(-50%));
+  }
+}
+
+.lo{
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.location .map{
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.featuresSection {
+  padding: 3rem 2rem;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.featuresGrid {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.featureCard {
+  background: var(--color-white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+/** Login Page **/
+.loginbody{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: 100vh;
+   background-image: url("images/LoginBackground.png");
+   color: #333;
+}
+
+.logincontainer{
+  margin: 0 15px;
+}
+
+.form-box{
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  background:transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.form-box.active{
+  display: block;
+}
+
+.login_h2{
+  font-size: 34px;
+  text-align: center;
+  margin-bottom: 20px;
+  text-decoration-color:#fff ;
+}
+
+input, select{
+  width: 100%;
+  padding: 12px;
+  background:transparent;
+
+  border-radius: 6px;
+  border: 2px solid #fff;
+  outline: none;
+  color: #0e0d0d;
+  margin-bottom: 20px;
+}
+
+.login_button{
+  width: 100%;
+  padding: 12px;
+  background: #7494ec;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: 0.5sec;
+}
+
+.login_button:hover{
+  background: #6884d3;
+}
+
+.login_p{
+  font-size: 14.5px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.login_p .login_a:hover{
+  text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+/* Dashboard */
+.dashboardContainer {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-areas: "sidebar main";
+  /* REMOVED: Redundant grid-template-rows and second grid-area definition */
+}
+
+aside {
+  grid-area: sidebar;
+  height: 100vh;
+  top: 0;
+  position: sticky;
+  align-self: start;
+  background: var(--color-white);
+  display: flex; /* Added flex to control children alignment */
+  flex-direction: column;
+}
+
+aside .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.4rem 1rem 0 1rem; /* Adjusted margin */
+}
+
+aside .logo {
+  display: flex;
+  align-items: center; /* Vertically align logo and text */
+  gap: 0.8rem; /* REDUCED: Original gap was very large */
+}
+
+aside .nav_logo {
+  width: 2rem;
+  height: 2rem;
+}
+
+aside .close {
+  display: none;
+}
+
+aside .sidebar {
+  /* REMOVED: Redundant background: white */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 3rem;
+  flex-grow: 1; /* Allows the sidebar to fill the height and push logout down */
+}
+
+aside h3 {
+  font-weight: 600;
+}
+
+aside .sidebar a {
+  display: flex;
+  color: var(--color-info-dark);
+  margin-left: 2rem;
+  gap: 1rem;
+  align-items: center;
+  height: 3.7rem;
+  transition: all 300ms ease;
+  position: relative; /* Keep relative positioning */
+}
+
+aside .sidebar a:last-child {
+  margin-top: auto; /* Pushes the last item (logout) to the bottom */
+  position: static; /* Let flexbox handle positioning */
+  width: 100%;
+  bottom: auto; /* Reset bottom property */
+}
+
+aside .sidebar a span {
+  font-size: 1.6rem;
+  transition: all 300ms ease;
+}
+
+aside .sidebar a.active {
+  background: var(--color-light);
+  color: var(--color-primary);
+  margin-left: 0;
+}
+
+aside .sidebar a.active::before {
+  content: '';
+  width: 6px;
+  height: 100%;
+  background: var(--color-primary);
+}
+
+aside .sidebar a.active span {
+  color: var(--color-primary);
+  /* FIX: Corrected space in '1 rem' */
+  margin-left: calc(1rem - 6px); /* Adjusted to align with the ::before element */
+}
+
+aside .sidebar a:hover {
+  color: var(--color-primary);
+}
+
+aside .sidebar a:hover span {
+  margin-left: 0.5rem; /* Changed hover effect for subtlety */
+}
+
+aside .sidebar .message-count {
+  background: var(--color-danger);
+  color: var(--color-white);
+  border-radius: var(--border-radius-1);
+  padding: 2px 10px;
+  font-size: 11px;
+}
+
+main {
+  grid-area: main;
+  padding: 1rem;
+  background-color: var(--color-background); /* Matched to other sections for consistency */
+  border-left: 2px solid #ddd; /* Lightened border */
+}
+
+
+main .grid-container {
+  display: grid;
+  /* FIX: Corrected grid-template-columns for responsiveness */
+  grid-template-columns: repeat(6,1fr);
+  gap: 10px;
+  min-height: 100vh;
+  padding: 5px;
+  grid-template-areas: "topRow1 topRow1 topRow2 topRow2 topRow3 topRow3 "
+                        "bottomRow1  bottomRow1  bottomRow1 bottomRow2 bottomRow2 bottomRow2";
+}
+.card-1{grid-area:topRow1 ;}
+.card-2{grid-area:topRow2 ;}
+.card-3{grid-area: topRow3 ;}
+.card-4{grid-area:bottomRow1 ;}
+.card-5{grid-area: bottomRow2;}
+
+main .grid-container > div {
+  padding: var(--card-padding);
+  background: var(--color-white);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+}
+
+.grid-container1 {
+   margin: 20px;
+   display: grid;
+   grid-template-columns: 2 1fr;
+   grid-template-areas: "cont1 cont2";
+
+
+}
+
+.wrapper {
+   padding: 10px;
+   display: grid;
+   grid-template-columns: repeat(3 1fr);
+   grid-template-areas: "box1 box2 box2 box3";
+   border: 1px solid #ccc;
+   color: #333;
+   margin: 10px;
+   gap: 10px;
+   border-radius: 20px;
+}
+
+.wrapper>div {
+   text-align: center;
+
+   color: #333;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.item1-1 {
+   grid-area: box1;
+   border: 1px solid #333;
+   color: #333;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.item1-2 {
+   text-align: left;
+   grid-area: box2;
+   color: #333;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.item1-3 {
+   grid-area: box3;
+
+   color: #333;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.content {
+   display: none;
+}
+
+.content.active {
+   display: block;
+}
+
+.update {
+   display: none;
+}
+
+.update.active {
+   display: block;
+}
+.renew {
+   display: none;
+}
+
+.renew.active {
+   display: block;
+}
+
+
+
+.AddContainer {
+   border: 1px solid #ccc;
+   margin: 50px 35px;
+   padding: 10px 20px;
+   text-align: center;
+
+}
+
+
+
+
+.AddContainer h3 {
+   text-align: center;
+}
+
+.AddContainer input,
+.AddContainer textarea {
+   width: 100%;
+   padding: 10px;
+   margin: 15px 0;
+   box-sizing: border-box;
+   border: none;
+   outline: none;
+   background: #f0f0f0;
+
+}
+
+.AddContainer button {
+   margin: 20px 0;
+   position: auto;
+   display: inline-block;
+   text-decoration: none;
+   color: #757171;
+   border: 1px solid #333;
+   padding: 12px 34px;
+   font-size: 13px;
+   border-radius: 10px;
+   background: transparent;
+   position: relative;
+   cursor: pointer;
+}
+
+.AddContainer button:hover {
+   border: 1px solid #48b948;
+   background-color: #48b948;
+   transition: 1s;
+}
+
+
+
+
+
+
+
+
+
+
+@media(max-width:1200px){
+    main .grid-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "topRow1"
+            "topRow2"
+            "topRow3"
+            "bottomRow1"
+            "bottomRow2"; 
+    }
+     .grid-container1 {
+
+      grid-template-areas: "cont1 ";
+
+
+   }
+}

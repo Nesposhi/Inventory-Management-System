@@ -1,0 +1,259 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Poppins', sans-serif;
+   list-style: none;
+   text-decoration: none;
+
+}
+
+body {
+   min-height: 100vh;
+   display: grid;
+   grid-template-columns: 200px 1fr;
+   grid-template-rows: auto 1fr auto;
+   grid-template-areas:
+      "navbar navbar"
+      "sidebar main"
+      "footer footer";
+
+}
+
+nav {
+   top: 0;
+   position: sticky;
+   color: #fff;
+   padding: 1rem;
+   grid-area: navbar;
+   border: 2px solid #333;
+   color: #333;
+
+}
+
+aside {
+   height: calc(100vh - 50.4px);
+   top: 50px;
+   position: sticky;
+   align-self: start;
+   color: #fff;
+   grid-area: sidebar;
+
+
+}
+
+aside ul {
+   display: block;
+   text-align: center;
+   gap: 10px;
+}
+
+aside ul li {
+   padding: 10px;
+   margin: 10px;
+   border-radius: 10px;
+   border: 1px solid #ccc;
+   color: #333;
+
+}
+
+main {
+   grid-area: main;
+   border: 1px solid #ccc;
+   color: #333;
+}
+
+main .grid-container {
+   display: grid;
+   gap: 10px;
+   padding: 20px;
+   min-height: 100vh;
+   grid-template-columns: repeat(6, 1fr);
+   grid-template-areas: "topRow1    topRow1    topRow2    topRow2    topRow3    topRow3"
+      "bottomRow1 bottomRow1 bottomRow1 bottomRow2 bottomRow2 bottomRow2";
+}
+
+.item-1 {
+   grid-area: topRow1;
+}
+
+.item-2 {
+   grid-area: topRow2;
+}
+
+.item-3 {
+   grid-area: topRow3;
+}
+
+.item-4 {
+   grid-area: bottomRow1;
+}
+
+.item-5 {
+   grid-area: bottomRow2;
+}
+
+.grid-container>div {
+   background-color: white;
+   border: 1px solid #ccc;
+   border-radius: 20px;
+
+   text-align: center;
+   font-size: 1.2rem;
+   font-family: 'Poppins' sans-serif;
+
+}
+
+.grid-container1 {
+   margin: 20px;
+   display: grid;
+   grid-template-columns: 2 1fr;
+   grid-template-areas: "cont1 cont2";
+
+
+}
+
+.wrapper {
+   padding: 10px;
+   display: grid;
+   grid-template-columns: repeat(3 1fr);
+   grid-template-areas: "box1 box2 box2 box3";
+   border: 1px solid #ccc;
+   color: #333;
+   margin: 10px;
+   gap: 10px;
+   border-radius: 20px;
+}
+
+.wrapper>div {
+   text-align: center;
+
+   color: #333;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.item1-1 {
+   grid-area: box1;
+   border: 1px solid #333;
+   color: #333;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.item1-2 {
+   text-align: left;
+   grid-area: box2;
+   color: #333;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.item1-3 {
+   grid-area: box3;
+
+   color: #333;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.content {
+   display: none;
+}
+
+.content.active {
+   display: block;
+}
+
+.update {
+   display: none;
+}
+
+.update.active {
+   display: block;
+}
+.renew {
+   display: none;
+}
+
+.renew.active {
+   display: block;
+}
+
+
+
+.AddContainer {
+   border: 1px solid #ccc;
+   margin: 50px 35px;
+   padding: 10px 20px;
+   text-align: center;
+
+}
+
+
+
+
+.AddContainer h3 {
+   text-align: center;
+}
+
+.AddContainer input,
+.AddContainer textarea {
+   width: 100%;
+   padding: 10px;
+   margin: 15px 0;
+   box-sizing: border-box;
+   border: none;
+   outline: none;
+   background: #f0f0f0;
+
+}
+
+.AddContainer button {
+   margin: 20px 0;
+   position: auto;
+   display: inline-block;
+   text-decoration: none;
+   color: #757171;
+   border: 1px solid #333;
+   padding: 12px 34px;
+   font-size: 13px;
+   border-radius: 10px;
+   background: transparent;
+   position: relative;
+   cursor: pointer;
+}
+
+.AddContainer button:hover {
+   border: 1px solid #48b948;
+   background-color: #48b948;
+   transition: 1s;
+}
+
+
+
+
+footer {
+   grid-area: footer;
+   background-color: transparent;
+   padding: .4rem;
+}
+
+@media(max-width:900px) {
+   main .grid-container {
+      grid-template-columns: 1fr;
+      grid-template-areas: "topRow1 "
+         "topRow2"
+         "topRow3"
+         "bottomRow1"
+         "bottomRow2";
+
+   }
+
+   .grid-container1 {
+
+      grid-template-areas: "cont1 ";
+
+
+   }
+}

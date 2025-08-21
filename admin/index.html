@@ -1,0 +1,681 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])){
+    header("location: login.php");
+    exit();
+}
+$errors = [
+      'register' => $_SESSION['register_error'] ?? ''
+];
+
+$activeForm = $_SESSION['active_form'] ?? 'register';
+
+session_unset();
+
+function showError($error){
+    return !empty($error) ? "<p class= 'error-message'> $error</p>" : '';
+}
+
+function isActiveForm($forName, $activeForm){
+    return $forName === $activeForm ? 'active' : '';
+}
+
+$conn = mysqli_connect("localhost", "root", " ", "server");
+
+$sql = "SELECT * FROM users";
+
+$result = mysqli_query($conn, $sql);
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="dstyles.css">
+    <script defer  src="script.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['medical Equipments',     11],
+          ['Patient care Equipments',      2],
+          ['Diagnostic Equipment',  2],
+          ['Supplies', 2],
+          ['Other Equipment',    7]
+        ]);
+
+        var options = {
+          title: 'Equipments'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="navlinks">
+             <h1>Dedza Hospital  </h1>
+        </div>
+        <div class="navlinks">
+          <div>
+             <img src="LoginBackground.png" alt="">
+             <h2>Admin</h2>
+             <h2>John doe</h2>
+                     
+            </div>
+          
+       </div>
+
+    </nav>
+    <aside>
+       <ul>
+         <li class="close">
+             <span class="material-symbols-outlined">close</span>
+         </li>
+         <li  onclick="event.preventDefault(); showContent('Dashboard')">
+            <span class="material-symbols-outlined">grid_view</span>
+            <h3>Dashboard</h3>
+         </li>
+         <li onclick="event.preventDefault(); showContent('Users')">
+            <span class="material-symbols-outlined">groups</span>
+            <h3>Users</h3>
+         </li>
+         <li onclick="event.preventDefault(); showContent('Inventory')">
+            <span class="material-symbols-outlined">inventory</span>
+            <h3>Inventory</h3>
+         </li>
+         <li onclick="event.preventDefault(); showContent('Dashboard')">
+            <span class="material-symbols-outlined">grid_view</span>
+            <h3>Dashboard</h3>
+         </li>
+         <li onclick="event.preventDefault(); showContent('Dashboard')">
+            <span class="material-symbols-outlined">grid_view</span>
+            <h3>Dashboard</h3>
+         </li>
+         <li onclick="event.preventDefault(); showContent('Dashboard')">
+            <span class="material-symbols-outlined">mode_off_on</span>
+            <h3>Log-out</h3>
+         </li>
+      </ul>  
+    </aside>
+    <main>
+        <div class="content active" id="Dashboard">
+            
+            <div class="Dashboard">
+                 <div class="chart-1">
+                  <div>
+                    <h3>Medical </h3>
+                     <li>Difibrillators</li>
+                     <li>Infusion-pumps</li>
+                     <li>ECG-Monitors</p>
+                     <p>Ultrasound-Machines</li>
+                     <p>Surgical-Equipment</p>
+                  </div>
+                  <div class="progress">
+                    <div class="outer">
+                        <div class="inner">
+                             <div class="number">
+                                75%
+                             </div>
+                        </div>
+                       
+                    </div>
+                    <svg>
+                        <circle cx="80" cy="80" cr="70"></circle>
+                    </svg>
+                  </div>
+                </div>
+                 <div class="chart-2">
+                     <div>
+                        <h3>Pantient Care</h3>
+                        <li>HospitalBeds</li>
+                        <li>HospitalBeds</li>
+                        <li>HospitalBeds</li>
+                        <li>HospitalBeds</li>
+                        <li>HospitalBeds</li>
+                        <li>HospitalBeds</li>
+                        <li>HospitalBeds</li>
+                        <li>HospitalBeds</li>
+                    </div>
+                    <div class="progress">
+                       <div class="outer">
+                        <div class="inner">
+                             <div class="number">
+                                75%
+                             </div>
+                        </div>
+                       
+                      </div>
+                    <svg>
+                         <circle cx="80" cy="80" cr="70"></circle>
+                    </svg>
+                  </div>
+                 </div>
+                 <div class="chart-3">
+                    <div>
+                       <h3>Diagnostic Equipment</h3>
+                       <li>X-ray machine</li>
+                       <li>MRI machine</li>
+                       <li>CT scanners</li>
+                       <li>Lab Equipment</li>
+                    </div>
+                   
+                    <div class="progress">
+                     <div class="outer">
+                        <div class="inner">
+                             <div class="number">
+                                75%
+                             </div>
+                        </div>
+                       
+                    </div>
+                    <svg>
+                      <circle cx="80" cy="80" cr="70"></circle>
+                    </svg>
+                  </div>
+                 </div>
+                    <div class="chart-4"><h3>
+                     <!--div>
+                         <h3>Supplies</h3>
+                         <li>Gloves</li>
+                         <li>Satures</li>
+                         <li>Bandages</li>
+                         <li>Bandages</li>
+                         <li>Dressing</li>
+                         <li>Medications</li>
+                     </div-->   
+                  <div class="progress">
+                    <div class="outer">
+                        <div class="inner">
+                             <div class="number">
+                                75%
+                             </div>
+                        </div>
+                       
+                    </div>
+                    <svg>
+                        <circle cx="80" cy="80" cr="70"></circle>
+                    </svg>
+                  </div>*/
+                </div>
+                 <div class="chart-5">
+                    <div>
+                        <h3>Other Equipments</h3>
+                        <li>Commmunication Devices</li>
+                        <li>Security Equipment</li>
+                        <li>cleaning and disinfection</li>
+                        <li>Vehicles</li>
+                    </div>
+                    <div class="progress">
+                       <div class="outer">
+                        <div class="inner">
+                             <div class="number">
+                                75%
+                             </div>
+                        </div>
+                       
+                      </div>
+                    <svg>
+                         <circle cx="80" cy="80" cr="70"></circle>
+                    </svg>
+                  </div>
+                 </div>
+                 <div class="chart-6">
+                    <div>
+                        <h3>Other Equipments</h3>
+                        <li>Commmunication Devices</li>
+                        <li>Security Equipment</li>
+                        <li>cleaning and disinfection</li>
+                        <li>Vehicles</li>
+                    </div>
+                    <div class="progress">
+                     <div class="outer">
+                        <div class="inner">
+                             <div class="number">
+                                75%
+                             </div>
+                        </div>
+                       
+                    </div>
+                    <svg>
+                      <circle cx="80" cy="80" cr="70"></circle>
+                    </svg>
+                  </div>
+                 </div>
+                 <div class="chart-7">
+                     <!--div id="piechart" style="width: 900px; height: 500px;" chart></div-->
+                 </div>
+              
+            </div>
+        </div>
+        <div class="content" id="Users">
+            <div class="Users active" id="UserList">
+                 <div class="table">
+                    <div class="table_header">
+                        <h3>User Details</h3>
+                        <div class="left">
+                             <span class="material-symbols-outlined" onclick="viewContent('AddUser')">add</span> 
+                             <div class="input-group">
+                                 <input type="search" placeholder="search inventory">
+                                 <img src="LoginBackground.png" alt="">
+                             </div>
+                        </div>
+                    </div>
+                    <div class="table_body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>profile</th>
+                                    <th>email</th>
+                                    <th>mobile</th>
+                                    <th>position</th>
+                                    <th>Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                        
+                                    <td><img src="LoginBackground.png" alt="">leon</td>
+                                    <td>nesposhi@gmail.com</td>
+                                    <td>08888888</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="viewContent('UpdateUser')">edit</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                        
+                                    <td><img src="LoginBackground.png" alt="">leon</td>
+                                    <td>nesposhi@gmail.com</td>
+                                    <td>08888888</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="viewContent('UpdateUser')">edit</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                        
+                                    <td><img src="LoginBackground.png" alt="">leon</td>
+                                    <td>nesposhi@gmail.com</td>
+                                    <td>08888888</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="viewContent('UpdateUser')">edit</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                        
+                                    <td><img src="LoginBackground.png" alt="">leon</td>
+                                    <td>nesposhi@gmail.com</td>
+                                    <td>08888888</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="viewContent('UpdateUser')">edit</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                        
+                                    <td><img src="LoginBackground.png" alt="">leon</td>
+                                    <td>nesposhi@gmail.com</td>
+                                    <td>08888888</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="viewContent('UpdateUser')">edit</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                        
+                                    <td><img src="LoginBackground.png" alt="">leon</td>
+                                    <td>nesposhi@gmail.com</td>
+                                    <td>08888888</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="viewContent('UpdateUser')">edit</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                        
+                                    <td><img src="LoginBackground.png" alt="">leon</td>
+                                    <td>nesposhi@gmail.com</td>
+                                    <td>08888888</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="viewContent('UpdateUser')">edit</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                        
+                                    <td><img src="LoginBackground.png" alt="">leon</td>
+                                    <td>nesposhi@gmail.com</td>
+                                    <td>08888888</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="viewContent('UpdateUser')">edit</span>
+                                    </td>
+                                </tr>
+                   
+                            </tbody>
+                        </table>
+                    </div>
+                 </div>
+            </div>
+            <div class="Users" id="AddUser" >
+                 <div class="formbox">
+                    <form action="login_register.php" method="post" class="form">
+                        <h3>New user</h3>
+                        <input type="text" name="name" placeholder=" Enter name" required>
+                        <input type="email"  name="email" placeholder="Email" required>
+                        <input type="text"  name="mobile"  placeholder="mobile" required>
+                        <input type="password" name="password" placeholder="password" required>
+                        <select name="role" required>
+                            <option value="">--select Role</option>
+                            <option value="">User</option>
+                            <option value="">Admin</option>
+                            <option value="">SuperAdmin</option>
+                        </select>
+                        <div class="buttons">
+                              <button class="cancel-button" onclick="viewContent('UserList')" >Cancel</button>
+                              <button class="form-button" type="submit"  name="register">Add user</button>
+                        </div>
+                        
+                        
+                    </form>
+                 </div>
+            </div>
+            <div class="Users" id="UpdateUser" >
+                 <div class="formbox">
+                    <form action="login_register.php" method="post" class= form>
+                        <h3>Update User</h3>
+                        <input type="text">
+                        <input type="text" name="name" placeholder="name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="text" name="mobile" placeholder="mobile" required>
+                        <input type="password" name="password" placeholder="password" required>
+                        <div class="buttons">
+                              <button class="cancel-button" onclick="viewContent('UserList')" >Cancel</button>
+                              <button class="form-button" type="submit"  name="update">Update</button>
+                        </div>
+                    </form>
+                 </div>
+            </div>
+
+        </div>
+        <div class="content" id="Inventory">
+            <div class="inventory active" id="InventoryList">
+                 <div class="table">
+                    <div class="table_header">
+                        <h3>Equipment Details</h3>
+                        <div class="left">
+                             <span class="material-symbols-outlined" onclick="displayContent('AddInventory')">add</span> 
+                             <div class="input-group">
+                                 <input type="search" placeholder="search inventory">
+                                 <img src="LoginBackground.png" alt="">
+                             </div>
+                        </div>
+                    </div>
+                    <div class="table_body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Category</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Medical Equipment</td>
+                                    <td>Distillators</td>
+                                    <td>300</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Medical Equipment</td>
+                                    <td>Infusion Pumps</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Patient Equipment</td>
+                                    <td>Hospital Beds</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Diagnostic Equipment</td>
+                                    <td>X-ray machine</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Supplies</td>
+                                    <td>medications</td>
+                                    <td>200</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Medical Equipment</td>
+                                    <td>Distillators</td>
+                                    <td>300</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Medical Equipment</td>
+                                    <td>Infusion Pumps</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Patient Equipment</td>
+                                    <td>Hospital Beds</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Diagnostic Equipment</td>
+                                    <td>X-ray machine</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Supplies</td>
+                                    <td>medications</td>
+                                    <td>200</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Medical Equipment</td>
+                                    <td>Distillators</td>
+                                    <td>300</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Medical Equipment</td>
+                                    <td>Infusion Pumps</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Patient Equipment</td>
+                                    <td>Hospital Beds</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Diagnostic Equipment</td>
+                                    <td>X-ray machine</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Supplies</td>
+                                    <td>medications</td>
+                                    <td>200</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Medical Equipment</td>
+                                    <td>Distillators</td>
+                                    <td>300</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Medical Equipment</td>
+                                    <td>Infusion Pumps</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Patient Equipment</td>
+                                    <td>Hospital Beds</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Diagnostic Equipment</td>
+                                    <td>X-ray machine</td>
+                                    <td>50</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="LoginBackground.png" alt=""></td>
+                                    <td>Supplies</td>
+                                    <td>medications</td>
+                                    <td>200</td>
+                                    <td>
+                                        <span class="material-symbols-outlined" onclick="displayContent('UpdateInventory')">edit</span>
+                                        
+                                    </td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                 </div>
+            </div>
+            <div class="inventory" id="AddInventory">
+                <div class="formbox">
+                    <form action="">
+                        <h3>New Product</h3>
+                        <input type="text" placeholder="Enter category" required>
+                        <input type="text" placeholder="Enter Inventory Name" required>
+                        <input type="text" placeholder="Enter Quantity" required>
+                        
+                        <div class="buttons">
+                              <button class="cancel-button" onclick="displayContent('InventoryList')" >Cancel</button>
+                              <button class="save-button" name="submit">save</button>
+                        </div>
+                    </form>                   
+                </div>
+            </div>
+            <div class="inventory" id="UpdateInventory">
+                 <div class="formbox">
+                    <form action="">
+                        <h3>Update Product</h3>
+                        <input type="text" placeholder="Enter category" required>
+                        <input type="text" placeholder="Enter Inventory Name" required>
+                        <input type="text" placeholder="Enter Quantity" required>
+                        
+                        <div class="buttons">
+                              <button class="cancel-button" onclick="displayContent('InventoryList')" >Cancel</button>
+                              <button class="save-button" name="submit">Update</button>
+                        </div>
+                    </form>                   
+                </div>
+            </div>
+
+        </div>
+
+    </main>  
+    
+</body>
+</html>
